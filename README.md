@@ -8,6 +8,7 @@
 <p><strong>Find every <code>node_modules</code> on your machine, see what it costs, and clean it up in one click.</strong></p>
 
 <p>
+  <a href="https://github.com/ramizbrain/marunda/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/ramizbrain/marunda?style=flat-square&color=6acf3e"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-6acf3e?style=flat-square"></a>
   <img alt="Built with Tauri 2" src="https://img.shields.io/badge/Tauri-2-232323?style=flat-square&logo=tauri">
   <img alt="React 19" src="https://img.shields.io/badge/React-19-232323?style=flat-square&logo=react">
@@ -70,18 +71,41 @@ Deleting folders is serious, so the guard rails live in the Rust backend, not ju
 
 ## Installation
 
-Prebuilt releases are not published yet. For now, build Marunda from source.
+### Download
 
-### Prerequisites
+Grab the latest version from the **[Releases page](https://github.com/ramizbrain/marunda/releases/latest)**:
+
+| OS | File |
+| --- | --- |
+| macOS (Apple Silicon and Intel) | `Marunda_x.y.z_universal.dmg` |
+| Windows 10/11 | `Marunda_x.y.z_x64-setup.exe` (or the `.msi`) |
+| Linux | `Marunda_x.y.z_amd64.AppImage`, `.deb`, or `.rpm` |
+
+What changed in each version is listed in [CHANGELOG.md](CHANGELOG.md).
+
+#### Opening Marunda for the first time
+
+Marunda's builds are not signed with a paid Apple or Microsoft certificate yet, so your OS
+will warn you the first time:
+
+- **macOS:** drag Marunda to Applications and open it. When macOS says it can't verify the
+  app, open **System Settings → Privacy & Security**, scroll down, and click **Open Anyway**.
+  If macOS instead says the app "is damaged", run
+  `xattr -cr /Applications/Marunda.app` in Terminal and open it again.
+- **Windows:** if SmartScreen shows "Windows protected your PC", click **More info → Run anyway**.
+
+### Build from source
+
+#### Prerequisites
 
 - [Node.js](https://nodejs.org) 20+ and [pnpm](https://pnpm.io)
 - [Rust](https://www.rust-lang.org/tools/install) 1.85+
 - The [Tauri system prerequisites](https://tauri.app/start/prerequisites/) for your OS
 
-### Build
+#### Build
 
 ```bash
-git clone <this-repo-url> marunda
+git clone https://github.com/ramizbrain/marunda.git
 cd marunda
 pnpm install
 pnpm tauri build

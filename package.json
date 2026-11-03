@@ -2,6 +2,7 @@
   "name": "marunda",
   "private": true,
   "version": "0.1.0",
+  "packageManager": "pnpm@10.30.3",
   "description": "Find every node_modules on your machine, see what it costs, and clean it up.",
   "license": "MIT",
   "keywords": [
