@@ -1,0 +1,147 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 32px;
+  text-align: center;
+}
+
+.welcome__logo {
+  display: block;
+  height: 32px;
+}
+
+.welcome__title {
+  max-width: 720px;
+  margin: 8px 0 0;
+  font-size: clamp(30px, 4.4vw, 50px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.welcome__subtitle {
+  max-width: 520px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 15.5px;
+}
+
+.welcome__scan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.welcome__scan-label {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  text-shadow: 0 0 18px rgb(106 207 62 / 50%);
+}
+
+.welcome__error {
+  max-width: 520px;
+  margin: 0;
+  padding: 10px 16px;
+  border: 1px solid rgb(255 95 109 / 40%);
+  border-radius: var(--radius-sm);
+  background: rgb(255 95 109 / 10%);
+  color: #ffb3ba;
+}
+
+/* ---------- Scan orb ---------- */
+
+.scan-orb {
+  position: relative;
+  width: 196px;
+  height: 196px;
+  border-radius: 50%;
+}
+
+.scan-orb__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 55%,
+    rgb(106 207 62 / 60%) 78%,
+    var(--green-bright) 92%,
+    transparent 100%
+  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2.5px));
+  animation: spin 2.6s linear infinite;
+}
+
+.scan-orb__core {
+  position: absolute;
+  inset: 9px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 26%, #2b2f29 0%, #131512 62%, #0d0e0c 100%);
+  box-shadow:
+    0 0 70px rgb(106 207 62 / 28%),
+    0 20px 50px rgb(0 0 0 / 50%),
+    inset 0 1px 0 rgb(255 255 255 / 9%),
+    inset 0 0 0 1px rgb(255 255 255 / 6%);
+}
+
+.scan-orb__icon {
+  width: 46%;
+  animation: float 3.6s ease-in-out infinite;
+  filter: drop-shadow(0 8px 18px rgb(106 207 62 / 30%));
+}
+
+.scan-orb__pulse {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgb(106 207 62 / 55%);
+  border-radius: 50%;
+  animation: pulse-out 2.6s var(--ease-out) infinite;
+}
+
+.scan-orb__pulse--late {
+  animation-delay: 1.3s;
+}
+
+.welcome__scan:hover .scan-orb__core {
+  box-shadow:
+    0 0 100px rgb(106 207 62 / 45%),
+    0 20px 50px rgb(0 0 0 / 50%),
+    inset 0 1px 0 rgb(255 255 255 / 12%),
+    inset 0 0 0 1px rgb(106 207 62 / 30%);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-6px) rotate(-2deg);
+  }
+}
+
+@keyframes pulse-out {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}

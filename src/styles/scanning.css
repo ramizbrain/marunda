@@ -1,0 +1,269 @@
+.scanning {
+  display: grid;
+  grid-template-columns: auto minmax(300px, 380px);
+  gap: 56px;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+/* ---------- Radar ---------- */
+
+.radar {
+  position: relative;
+  width: min(440px, 62vh);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(106 207 62 / 9%) 0%, transparent 70%);
+}
+
+.radar__ring {
+  position: absolute;
+  border: 1px solid rgb(106 207 62 / 18%);
+  border-radius: 50%;
+  transition: border-color 0.6s;
+}
+
+.radar__ring--1 {
+  inset: 0;
+  box-shadow: inset 0 0 60px rgb(106 207 62 / 8%);
+}
+
+.radar__ring--2 {
+  inset: 17%;
+}
+
+.radar__ring--3 {
+  inset: 34%;
+}
+
+.radar__crosshair {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(transparent calc(50% - 0.5px), rgb(106 207 62 / 12%) 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(90deg, transparent calc(50% - 0.5px), rgb(106 207 62 / 12%) 50%, transparent calc(50% + 0.5px));
+}
+
+.radar__sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgb(106 207 62 / 55%) 0deg, rgb(106 207 62 / 0%) 70deg, transparent 360deg);
+  mask: radial-gradient(circle, transparent 18%, #000 30%);
+  animation: spin 2.2s linear infinite;
+  transition: opacity 0.5s;
+}
+
+.radar__wave {
+  position: absolute;
+  inset: 34%;
+  border: 1.5px solid rgb(106 207 62 / 45%);
+  border-radius: 50%;
+  animation: radar-wave 2.4s var(--ease-out) infinite;
+}
+
+.radar__wave--late {
+  animation-delay: 1.2s;
+}
+
+/* Blips use margins (not transforms) to center, because motion animates their transform. */
+.radar__blip {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--green-bright);
+  box-shadow: 0 0 12px var(--green), 0 0 3px #fff;
+}
+
+.radar__blip::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  animation: pulse-out 1.8s var(--ease-out) infinite;
+}
+
+.radar__orb {
+  position: absolute;
+  inset: 0;
+  width: 132px;
+  height: 132px;
+  margin: auto;
+}
+
+.radar__done {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  margin: auto;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--green-bright), var(--green) 60%, var(--green-deep));
+  color: var(--on-green);
+  box-shadow: 0 0 80px rgb(106 207 62 / 60%);
+}
+
+.radar[data-complete="true"] .radar__sweep,
+.radar[data-complete="true"] .radar__wave {
+  opacity: 0;
+  animation-play-state: paused;
+}
+
+.radar[data-complete="true"] .radar__ring {
+  border-color: rgb(106 207 62 / 40%);
+}
+
+@keyframes radar-wave {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(2.95);
+    opacity: 0;
+  }
+}
+
+/* ---------- Side panel ---------- */
+
+.scanning__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Fixed height so swapping the title never shifts the content below. */
+.scanning__title-slot {
+  height: 52px;
+}
+
+.scanning__title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.scanning__dots span {
+  animation: blink 1.2s infinite;
+}
+
+.scanning__dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.scanning__dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.scanning__path {
+  margin: -8px 0 4px;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scanning__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0;
+}
+
+.scanning__stat {
+  padding: 12px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+}
+
+.scanning__stat dt {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.scanning__stat dd {
+  margin: 2px 0 0;
+  font-size: 20px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.scanning__stat--highlighted {
+  border-color: rgb(106 207 62 / 35%);
+  background: linear-gradient(140deg, rgb(106 207 62 / 16%), rgb(106 207 62 / 3%));
+}
+
+.scanning__stat--highlighted dd {
+  color: var(--green-bright);
+}
+
+.scanning__cancel {
+  align-self: flex-start;
+}
+
+/* ---------- Found feed ---------- */
+
+.found-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 176px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.found-feed__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: var(--glass);
+}
+
+.found-feed__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+
+.found-feed__name {
+  flex: 1;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.found-feed__size {
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}

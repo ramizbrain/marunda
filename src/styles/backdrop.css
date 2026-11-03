@@ -1,0 +1,81 @@
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #141a12 0%, var(--bg) 70%);
+}
+
+.backdrop__glow {
+  position: absolute;
+  width: 640px;
+  height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(106 207 62 / 55%), transparent 65%);
+  filter: blur(70px);
+  opacity: 0.22;
+  transition: opacity 1.2s var(--ease-out);
+}
+
+.backdrop__glow--a {
+  top: -260px;
+  left: -160px;
+  animation: drift-a 22s ease-in-out infinite alternate;
+}
+
+.backdrop__glow--b {
+  right: -220px;
+  bottom: -300px;
+  background: radial-gradient(circle, rgb(166 242 126 / 45%), transparent 65%);
+  animation: drift-b 26s ease-in-out infinite alternate;
+}
+
+.backdrop__grid {
+  position: absolute;
+  inset: -40px;
+  background-image: radial-gradient(rgb(255 255 255 / 9%) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 75%);
+  transition: opacity 1s;
+}
+
+.backdrop__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 55%) 100%);
+}
+
+/* While scanning, the world lights up and the grid streams past. */
+.backdrop[data-phase="scanning"] .backdrop__glow {
+  opacity: 0.38;
+}
+
+.backdrop[data-phase="scanning"] .backdrop__grid {
+  animation: grid-stream 1.6s linear infinite;
+}
+
+.backdrop[data-phase="dashboard"] .backdrop__glow {
+  opacity: 0.12;
+}
+
+.backdrop[data-phase="dashboard"] .backdrop__grid {
+  opacity: 0.4;
+}
+
+@keyframes drift-a {
+  to {
+    transform: translate(220px, 140px) scale(1.15);
+  }
+}
+
+@keyframes drift-b {
+  to {
+    transform: translate(-200px, -120px) scale(0.9);
+  }
+}
+
+@keyframes grid-stream {
+  to {
+    transform: translateY(28px);
+  }
+}

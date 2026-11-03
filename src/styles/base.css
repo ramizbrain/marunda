@@ -1,0 +1,275 @@
+@import "@fontsource-variable/plus-jakarta-sans";
+
+/* ---------- Tokens ---------- */
+
+:root {
+  /* Brand */
+  --green: #6acf3e;
+  --green-bright: #a6f27e;
+  --green-deep: #3f8f1f;
+  --charcoal: #232323;
+  --on-green: #0d2205;
+
+  /* Surfaces */
+  --bg: #0a0a0a;
+  --glass: rgb(255 255 255 / 4%);
+  --glass-strong: rgb(255 255 255 / 7%);
+  --glass-border: rgb(255 255 255 / 9%);
+  --text: #f4f4f2;
+  --text-muted: #9b9b96;
+  --text-faint: #6a6a66;
+  --danger: #ff5f6d;
+  --danger-strong: #e8404f;
+  --warning: #f5b94f;
+
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  font-family: "Plus Jakarta Sans Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--glass-strong);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--green) 10%, var(--green-bright) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Layout ---------- */
+
+.app {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Screens are stacked so one can animate out while the next animates in. */
+.screen {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.button--primary {
+  background: var(--green);
+  color: var(--on-green);
+  box-shadow: 0 6px 24px rgb(106 207 62 / 30%);
+}
+
+.button--primary:hover:not(:disabled) {
+  background: var(--green-bright);
+}
+
+.button--danger {
+  background: var(--danger);
+  color: #fff;
+  box-shadow: 0 6px 24px rgb(255 95 109 / 30%);
+}
+
+.button--danger:hover:not(:disabled) {
+  background: var(--danger-strong);
+}
+
+.button--ghost {
+  border-color: var(--glass-border);
+  background: var(--glass);
+}
+
+.button--ghost:hover:not(:disabled) {
+  background: var(--glass-strong);
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.icon-button:hover {
+  background: var(--glass-strong);
+  color: var(--text);
+}
+
+/* ---------- Folder chip ---------- */
+
+.root-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 460px;
+  padding: 9px 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  color: var(--text-muted);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.root-chip:hover {
+  border-color: rgb(106 207 62 / 50%);
+  background: var(--glass-strong);
+}
+
+.root-chip__path {
+  overflow: hidden;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.root-chip__action {
+  color: var(--green);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.root-chip--compact {
+  max-width: 280px;
+  padding: 7px 12px;
+}
+
+/* ---------- Checkbox ---------- */
+
+.checkbox {
+  position: relative;
+  display: inline-grid;
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.checkbox input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox input:disabled {
+  cursor: not-allowed;
+}
+
+.checkbox__face {
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgb(255 255 255 / 25%);
+  border-radius: 6px;
+  color: var(--on-green);
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.checkbox[data-on="true"] .checkbox__face {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: 0 0 14px rgb(106 207 62 / 45%);
+}
+
+.checkbox input:focus-visible + .checkbox__face {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+/* ---------- Sparkle burst ---------- */
+
+.sparkle-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkle-burst__particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  color: var(--green);
+  filter: drop-shadow(0 0 6px rgb(106 207 62 / 70%));
+}
+
+.sparkle-burst__particle:nth-child(3n) {
+  color: var(--green-bright);
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+}
+
+.sparkle-burst__particle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
